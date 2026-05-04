@@ -1,0 +1,65 @@
+<div class="container mt-4">
+
+  <h2 class="text-center">Productos</h2>
+
+  <div class="row">
+
+    <div class="col-md-4" *ngFor="let producto of productos">
+
+      <div class="card mb-3">
+        <img [src]="producto.img" class="card-img-top">
+
+        <div class="card-body">
+          <h5>{{ producto.nombre }}</h5>
+          <p>{{ producto.descripcion }}</p>
+          <p><strong>$ {{ producto.precio }}</strong></p>
+
+          <button 
+            class="btn btn-primary"
+            (click)="agregarCarrito(producto)">
+            Agregar al carrito
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- BOTÓN PARA ABRIR MODAL -->
+  <div class="text-center mt-3">
+    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#carritoModal">
+      Ver carrito
+    </button>
+  </div>
+
+</div>
+<div class="modal fade" id="carritoModal" tabindex="-1">
+
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5>Carrito</h5>
+        <button class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+
+        <ul class="list-group">
+          <li class="list-group-item" *ngFor="let item of carrito">
+            {{ item.nombre }} - $ {{ item.precio }}
+          </li>
+        </ul>
+
+        <hr>
+
+        <h5>Total: $ {{ getTotal() }}</h5>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>

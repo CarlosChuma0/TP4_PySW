@@ -1,0 +1,29 @@
+<div class="position-relative d-flex justify-content-center align-items-center">
+
+  <div class="card p-4 shadow text-center" style="max-width: 600px; width: 100%;">
+    <img [src]="eventos[indiceActual].img" class="card-img-top img-fluid" alt="evento">
+
+    <h5 class="card-title mt-3">
+      {{ eventos[indiceActual].nombre }}
+    </h5>
+
+    <p class="card-text">
+      {{ eventos[indiceActual].descripcion }}
+    </p>
+  </div>
+
+  <!-- BOTÓN ANTERIOR -->
+  <button class="btn btn-dark rounded-circle position-absolute start-0 top-50 translate-middle-y shadow"
+        style="width: 45px; height: 45px;"
+        (click)="anterior()">
+  <i class="bi bi-chevron-left"></i>
+</button>
+
+  <!-- BOTÓN SIGUIENTE -->
+  <button class="btn btn-dark rounded-circle position-absolute end-0 top-50 translate-middle-y shadow"
+        style="width: 45px; height: 45px;"
+          (click)="siguiente()">
+    <i class="bi bi-chevron-right"></i>
+  </button>
+
+</div>

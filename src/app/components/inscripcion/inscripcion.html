@@ -1,0 +1,89 @@
+<div class="container mt-4">
+
+  <h2>Inscripción a Cursos</h2>
+
+  <form #formInscripcion="ngForm">
+
+    <input class="form-control mb-2" placeholder="DNI" [(ngModel)]="dni" name="dni" required #dniRef="ngModel">
+    <div *ngIf="dniRef.invalid && dniRef.touched" class="text-danger">
+      El DNI es obligatorio
+    </div>
+
+    <input class="form-control mb-2" type="number" placeholder="Precio" [(ngModel)]="precio" name="precio"
+      (input)="calcularTotal()" required>
+
+    <select class="form-control mb-2" 
+    [(ngModel)]="categoriaAlumno" 
+    name="categoria" 
+    required
+    #catRef="ngModel" 
+    (change)="calcularTotal()">
+
+      <option [ngValue]="null">Seleccione categoría</option>
+      <option [ngValue]="1">Estudiante</option>
+      <option [ngValue]="2">Egresado</option>
+      <option [ngValue]="3">Particular</option>
+    </select>
+    <div *ngIf="catRef.invalid && catRef.touched" class="text-danger">
+      Debe seleccionar una categoría
+    </div>
+
+    <input class="form-control mb-2" type="date" [(ngModel)]="fechaInscripcion" name="fecha">
+
+    <input class="form-control mb-2" placeholder="Email" [(ngModel)]="email" name="email" required email
+      #emailRef="ngModel">
+
+    <div *ngIf="emailRef.invalid && emailRef.touched" class="text-danger">
+      Email inválido
+    </div>
+    <input class="form-control mb-2" placeholder="Curso" [(ngModel)]="curso" name="curso" required>
+
+    <!-- TOTAL -->
+    <div *ngIf="precio && categoriaAlumno!==null">
+      <h5>Total: $ {{ total }}</h5>
+    </div>
+
+    <button class="btn btn-primary mt-2" 
+    (click)="registrar(formInscripcion)"
+    [disabled]="formInscripcion.invalid">
+      Registrar
+    </button>
+
+  </form>
+
+  <hr>
+  <h3>Registros</h3>
+
+  <table class="table table-striped mt-3">
+    <thead>
+      <tr>
+        <th>DNI</th>
+        <th>Curso</th>
+        <th>Fecha</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let i of lista">
+        <td>{{ i.dni }}</td>
+        <td>{{ i.curso }}</td>
+        <td>{{ i.fechaInscripcion | date:'dd/MM/yyyy' }}</td>
+        <td>$ {{ i.total }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="mt-4">
+
+    <h3>Resumen</h3>
+
+    <p>Estudiantes: $ {{ service.totalPorCategoria(1) }}</p>
+    <p>Egresados: $ {{ service.totalPorCategoria(2) }}</p>
+    <p>Particulares: $ {{ service.totalPorCategoria(3) }}</p>
+
+    <hr>
+
+    <h4>Total General: $ {{ service.totalGeneral() }}</h4>
+
+  </div>
+
+</div>

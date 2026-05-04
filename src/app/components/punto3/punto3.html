@@ -1,0 +1,43 @@
+<div class="container text-center mt-4">
+
+  <h2>Juego de Memoria</h2>
+
+  <!-- BOTONES -->
+  <div class="mb-3">
+    <button class="btn btn-success me-2" (click)="inicio()" [disabled]="juegoIniciado">Iniciar</button>
+    <button class="btn btn-warning me-2" (click)="intento()" [disabled]="!juegoIniciado">Intentar</button>
+    <button class="btn btn-danger" (click)="reiniciar()" [disabled]="!juegoIniciado">Reiniciar</button>
+  </div>
+
+  <p>Intentos restantes: {{ intentos }}</p>
+  <!-- RESULTADO -->
+  <div class="mt-3">
+
+    <h4 *ngIf="juegoGanado()">🎉 Ganaste!</h4>
+    <h4 *ngIf="!juegoGanado()  && intentos === 0">❌ Perdiste</h4>
+
+  </div>
+
+  <!-- TABLERO -->
+  <div class="row justify-content-center">
+
+    <div 
+      class="col-2 m-2 p-3 carta"
+      [class.visible]="carta.visible"
+      [class.bloqueada]="bloqueado"
+      *ngFor="let carta of cartas"
+      (click)="seleccion(carta)">
+
+      <span *ngIf="carta.visible">
+        {{ carta.valor }}
+      </span>
+
+      <span *ngIf="!carta.visible">
+        ❓
+      </span>
+
+    </div>
+
+  </div>
+
+</div>
